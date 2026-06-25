@@ -67,43 +67,57 @@ skills/
 
 ## Updating a skill
 
-Skills in this repo are authored locally at `~/.claude/skills/<skill-name>/SKILL.md` and
-then published here. When a skill's instructions change, sync the file and push:
+**Recommended setup:** clone this repo to a permanent location and run `link-skills.sh`
+once. After that, `~/.claude/skills/<name>` becomes a symlink into this repo — editing
+the skill file in place *is* editing the repo. Publishing is a single command.
 
 ```bash
-# 1. Clone the repo if you don't have it locally yet
-git clone git@github.com:yura1106/llm_skills.git /tmp/llm_skills
-
-# 2. Copy the updated SKILL.md from your local skill directory
-cp ~/.claude/skills/plan-meal/SKILL.md /tmp/llm_skills/skills/grocy/plan-meal/SKILL.md
-# or for recipe-from-stock:
-cp ~/.claude/skills/recipe-from-stock/SKILL.md /tmp/llm_skills/skills/grocy/recipe-from-stock/SKILL.md
-
-# 3. Commit and push
-cd /tmp/llm_skills
-git add skills/
-git commit -m "update plan-meal skill"
-git push
+# One-time setup
+git clone git@github.com:yura1106/llm_skills.git ~/llm_skills
+bash ~/llm_skills/scripts/link-skills.sh
 ```
 
-Users who installed via `npx skills@latest add` can get the latest version by re-running
-the same command. Users who installed manually via `git clone` just need to `git pull`
-inside their cloned directory — the symlinks created by `link-skills.sh` already point
-into that directory, so no relinking is needed.
+Now `~/.claude/skills/plan-meal/SKILL.md` points directly into `~/llm_skills/skills/grocy/plan-meal/SKILL.md`.
+Edit it however you like, then publish:
+
+```bash
+bash ~/llm_skills/scripts/publish.sh "update plan-meal: clarify unit handling"
+```
+
+That's it — no copying, no separate commit step.
+
+---
+
+**Without the symlink setup** (e.g. you installed via `npx skills@latest add`), copy and push manually:
+
+```bash
+cp ~/.claude/skills/plan-meal/SKILL.md ~/llm_skills/skills/grocy/plan-meal/SKILL.md
+bash ~/llm_skills/scripts/publish.sh "update plan-meal"
+```
+
+Users who installed via `npx skills@latest add` can pull the latest version by re-running
+the same install command. Users who cloned manually just need `git pull` — the symlinks
+already point into the cloned directory, so no relinking is needed.
 
 ### Adding a new skill
 
-1. Create the skill directory and file:
-   ```bash
-   mkdir -p /tmp/llm_skills/skills/<category>/<skill-name>
-   cp ~/.claude/skills/<skill-name>/SKILL.md /tmp/llm_skills/skills/<category>/<skill-name>/SKILL.md
-   ```
-2. Make sure `SKILL.md` starts with the required frontmatter:
+1. Write the skill locally at `~/.claude/skills/<skill-name>/SKILL.md`. Make sure it
+   starts with the required frontmatter:
    ```yaml
    ---
    name: skill-name
    description: One-line description of when and why to invoke this skill.
    ---
    ```
-3. Commit and push. The `skills` CLI will discover any `SKILL.md` found under `skills/`
-   automatically — no registration step needed.
+2. Copy it into the repo (or just create it there directly if you used the symlink setup):
+   ```bash
+   mkdir -p ~/llm_skills/skills/<category>/<skill-name>
+   cp ~/.claude/skills/<skill-name>/SKILL.md ~/llm_skills/skills/<category>/<skill-name>/SKILL.md
+   ```
+3. Publish:
+   ```bash
+   bash ~/llm_skills/scripts/publish.sh "add <skill-name> skill"
+   ```
+
+The `skills` CLI discovers any `SKILL.md` found under `skills/` automatically — no
+registration step needed.
