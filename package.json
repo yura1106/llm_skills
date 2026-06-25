@@ -1,0 +1,11 @@
+{
+  "name": "yura1106-llm-skills",
+  "version": "1.0.0",
+  "description": "Yuriy's personal agent skills for Grocy meal planning and cooking",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yura1106/llm_skills"
+  },
+  "license": "MIT",
+  "packageManager": "npm@10.9.4"
+}
