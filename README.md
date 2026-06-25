@@ -46,7 +46,7 @@ Both skills require the `grocy-nutrients` MCP server. Add it to your Claude Code
       "command": "npx",
       "args": ["grocy-nutrients-mcp"],
       "env": {
-        "GROCY_URL": "http://your-grocy-instance",
+        "GROCY_URL": "http://your-grocy-nutrient-instance",
         "GROCY_API_KEY": "your-api-key"
       }
     }
