@@ -11,7 +11,7 @@ nutrition; the user handles consuming the plan separately, themselves.
 
 ## Prerequisites
 
-Depends on the **`grocy-nutrients` MCP server** (see [INSTALL.md](INSTALL.md)). Tools used:
+Depends on the **`grocy-nutrients` MCP server**. Tools used:
 
 - `mcp__grocy-nutrients__get_day` — today's nutrition totals + targets (for context)
 - `mcp__grocy-nutrients__search_product` — fuzzy-find a product, returns its local `id`

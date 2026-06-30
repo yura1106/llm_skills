@@ -20,7 +20,7 @@ Code / Desktop). It calls these MCP tools:
 - `mcp__grocy-nutrients__get_recipe_detail` — full ingredient/macro detail for one recipe
 
 If these tools are not available, stop and tell the user to configure the `grocy-nutrients` MCP
-server first (see [INSTALL.md](INSTALL.md)). Do **not** invent stock data.
+server first. Do **not** invent stock data.
 
 ## Workflow
 
